@@ -1,4 +1,5 @@
 var data = require('./fakeData')
+const userReads = []
 
 const getUser = (req, res, next) => {
   const { name } = req.body
@@ -13,6 +14,7 @@ const getUser = (req, res, next) => {
     return res.status(404).json({ message: 'Usuário não encontrado.' })
   }
 
+  userReads.push(user)
   return res.status(200).json(user)
 }
 
@@ -27,4 +29,5 @@ const getUsers = (req, res, next) => {
 module.exports = {
   getUser,
   getUsers,
+  userReads,
 }

@@ -1,9 +1,17 @@
+const { userReads } = require('./teste1')
 
+module.exports = function (req, res) {
+  const { name } = req.body
 
-module.exports = function(req, res){
-    
-    var name =  req.query.name;
+  const userReadCount = userReads.filter((read) => read.name === name)
 
-    res.send("Usuário " +  name  + "  foi lido 0 vezes.");
+  if (userReadCount.length === 0) {
+    return res.json({
+      message: `Nenhum usuário foi lido até o momento.`,
+    })
+  }
 
-};
+  res.json({
+    message: `Usuário com o nome ${name} foi lido ${userReadCount.length} vezes.`,
+  })
+}
